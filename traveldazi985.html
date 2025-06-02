@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+   
+    <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搭子旅行 - 专为高校学生打造的社交旅行平台</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 登录界面 -->
+    <!-- 初始加载时，只有 loginPage 拥有 'active' 类 -->
+    <div id="loginPage" class="page active">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <div class="logo">
+                        <i class="fas fa-route"></i>
+                        <span>搭子旅行</span>
+                    </div>
+                    <h2>欢迎回来</h2>
+                    <p>与志同道合的朋友一起探索世界</p>
+                </div>
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="loginEmail">用户名/邮箱</label>
+                        <input type="text" id="loginEmail" required="" value="test@zju.edu.cn"> <!-- 预设值方便测试 -->
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">密码</label>
+                        <input type="password" id="loginPassword" required="" value="123456"> <!-- 预设值方便测试 -->
+                    </div>
+                    <div class="form-options">
+                        <a href="#" class="forgot-password">忘记密码？</a>
+                    </div>
+                    <button type="submit" class="auth-btn primary">登录</button>
+                </form>
+                <div class="auth-switch">
+                    <span>还没有账号？</span>
+                    <a href="#" id="switchToRegister">立即注册</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 注册界面 -->
+    <div id="registerPage" class="page">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <div class="logo">
+                        <i class="fas fa-route"></i>
+                        <span>搭子旅行</span>
+                    </div>
+                    <h2>创建新账号</h2>
+                    <p>加入高校学生专属社交平台</p>
+                </div>
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="registerUsername">用户名</label>
+                        <input type="text" id="registerUsername" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">学校邮箱</label>
+                        <input type="email" id="registerEmail" placeholder="例：zhang@zju.edu.cn" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">密码</label>
+                        <input type="password" id="registerPassword" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">确认密码</label>
+                        <input type="password" id="confirmPassword" required="">
+                    </div>
+                    <button type="submit" class="auth-btn primary">注册</button>
+                </form>
+                <div class="auth-switch">
+                    <span>已有账号？</span>
+                    <a href="#" id="switchToLogin">立即登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主应用界面 -->
+    <!-- 初始加载时，mainApp 不拥有 'active' 类，由 JS 控制显示 -->
+    <div id="mainApp" class="page"> 
+        <!-- 顶部导航栏 -->
+        <header class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <i class="fas fa-route"></i>
+                    <span>搭子旅行</span>
+                </div>
+                <nav class="nav-menu">
+                    <!-- 默认active给到首页 -->
+                    <a href="#" class="nav-link active" data-page="home">首页</a>
+                    <a href="#" class="nav-link" data-page="dabber">搭子板块</a>
+                    <a href="#" class="nav-link" data-page="travel">旅游板块</a>
+                    <a href="#" class="nav-link" data-page="profile">个人中心</a>
+                    <a href="#" class="nav-link logout" id="logoutBtn">退出登录</a>
+                </nav>
+                <!-- 移动端导航切换按钮 -->
+                <button class="nav-toggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 首页 -->
+            <!-- 初始加载时，homePage 拥有 'active' 类 (当 mainApp 显示时) -->
+            <section id="homePage" class="content-page active">
+                <!-- 英雄区 -->
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <h1>找到你的专属搭子，探索精彩世界</h1>
+                        <p>专为高校学生打造，安全、可靠、趣味无穷的社交与旅行平台</p>
+                        <div class="hero-actions">
+                            <button class="btn primary" data-page="dabber">立即寻找搭子</button>
+                            <button class="btn secondary" data-page="travel">探索精彩旅程</button>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="旅行">
+                    </div>
+                </div>
+
+                <!-- 功能亮点区 -->
+                <div class="features-section">
+                    <div class="container">
+                        <h2>平台优势</h2>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h3>可靠身份认证</h3>
+                                <p>支付宝学生认证，确保用户真实性，打造安全可信的社交环境</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h3>多元搭子匹配</h3>
+                                <p>约羽毛球、约饭、约自习...兴趣爱好一键匹配，找到志同道合的朋友</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                </div>
+                                <h3>定制专属旅行</h3>
+                                <p>发现小众路线，与志同道合的人一同出发，创造美好回忆</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <h3>官方合作保障</h3>
+                                <p>接入携程、去哪儿，预定更便捷，享受学生专属优惠</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 预留扩展区域 -->
+                <div class="extension-section">
+                    <div class="container">
+                        <!-- 未来可添加：最新活动、合作伙伴、用户评价等 -->
+                        <div class="placeholder-area">
+                            <h3>更多精彩功能即将上线...</h3>
+                            <p>敬请期待最新活动推荐、合作伙伴优惠等功能</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 搭子板块 -->
+            <section id="dabberPage" class="content-page">
+                <div class="page-header">
+                    <div class="container">
+                        <h1>搭子板块</h1>
+                        <p>寻找志同道合的朋友，一起享受美好时光</p>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <!-- 筛选搜索栏 -->
+                    <div class="search-filters">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="搜索活动，如羽毛球、吃饭...">
+                        </div>
+                        <div class="filter-group">
+                            <select class="filter-select">
+                                <option value="">活动类型</option>
+                                <option value="sports">体育运动</option>
+                                <option value="food">美食探店</option>
+                                <option value="study">学习自习</option>
+                                <option value="entertainment">休闲娱乐</option>
+                            </select>
+                            <select class="filter-select">
+                                <option value="">地点</option>
+                                <option value="campus">校内</option>
+                                <option value="offcampus">校外</option>
+                                <option value="xihu">西湖区</option>
+                                <option value="shangcheng">上城区</option>
+                            </select>
+                            <input type="date" class="filter-date">
+                        </div>
+                        <button class="btn primary publish-btn" id="publishDabberBtn">
+                            <i class="fas fa-plus"></i>
+                            发布搭子需求
+                        </button>
+                    </div>
+
+                    <!-- 搭子活动列表 -->
+                    <div class="activities-grid">
+                        <!-- 活动卡片示例 -->
+                        <div class="activity-card">
+                            <div class="activity-header">
+                                <div class="activity-type">
+                                    <i class="fas fa-table-tennis"></i>
+                                    <span>体育运动</span>
+                                </div>
+                                <div class="activity-time">今天 15:00</div>
+                            </div>
+                            <h3>约羽毛球</h3>
+                            <p>羽毛球菜鸟求虐，周日下午，有兴趣的朋友一起来运动！</p>
+                            <div class="activity-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>2025/06/08 15:00</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>浙大紫金港体育馆</span>
+                                </div>
+                            </div>
+                            <div class="activity-footer">
+                                <div class="user-info">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                    <span>饼干君</span>
+                                </div>
+                                <div class="participants">
+                                    <span>2/4 人</span>
+                                </div>
+                                <button class="btn secondary small">加入</button>
+                            </div>
+                        </div>
+
+                        <div class="activity-card">
+                            <div class="activity-header">
+                                <div class="activity-type">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>美食探店</span>
+                                </div>
+                                <div class="activity-time">明天 18:30</div>
+                            </div>
+                            <h3>一起探店</h3>
+                            <p>新开的川菜馆据说很不错，寻找同样喜欢吃辣的朋友一起去试试！</p>
+                            <div class="activity-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>2025/06/09 18:30</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>文一西路美食街</span>
+                                </div>
+                            </div>
+                            <div class="activity-footer">
+                                <div class="user-info">
+                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                    <span>饼干君</span>
+                                </div>
+                                <div class="participants">
+                                    <span>1/3 人</span>
+                                </div>
+                                <button class="btn secondary small">加入</button>
+                            </div>
+                        </div>
+
+                        <div class="activity-card">
+                            <div class="activity-header">
+                                <div class="activity-type">
+                                    <i class="fas fa-book"></i>
+                                    <span>学习自习</span>
+                                </div>
+                                <div class="activity-time">周末全天</div>
+                            </div>
+                            <h3>周末自习搭子</h3>
+                            <p>期末复习冲刺，寻找一起去图书馆的学习伙伴，互相监督进步！</p>
+                            <div class="activity-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>2025/06/10 全天</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>浙大紫金港图书馆</span>
+                                </div>
+                            </div>
+                            <div class="activity-footer">
+                                <div class="user-info">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                    <span>饼干君</span>
+                                </div>
+                                <div class="participants">
+                                    <span>3/5 人</span>
+                                </div>
+                                <button class="btn secondary small">加入</button>
+                            </div>
+                        </div>
+
+                        <div class="activity-card">
+                            <div class="activity-header">
+                                <div class="activity-type">
+                                    <i class="fas fa-film"></i>
+                                    <span>休闲娱乐</span>
+                                </div>
+                                <div class="activity-time">本周五 19:00</div>
+                            </div>
+                            <h3>看电影</h3>
+                            <p>新上映的科幻大片，有想一起去看的朋友吗？看完可以一起讨论剧情～</p>
+                            <div class="activity-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>2025/06/07 19:00</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>西溪印象城影院</span>
+                                </div>
+                            </div>
+                            <div class="activity-footer">
+                                <div class="user-info">
+                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b332c4b7?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                    <span>饼干君</span>
+                                </div>
+                                <div class="participants">
+                                    <span>2/4 人</span>
+                                </div>
+                                <button class="btn secondary small">加入</button>
+                            </div>
+                        </div>
+
+                        <div class="activity-card">
+                            <div class="activity-header">
+                                <div class="activity-type">
+                                    <i class="fas fa-gamepad"></i>
+                                    <span>休闲娱乐</span>
+                                </div>
+                                <div class="activity-time">今晚 20:00</div>
+                            </div>
+                            <h3>桌游聚会</h3>
+                            <p>宿舍准备了很多有趣的桌游，欢迎大家来一起玩，包子奶茶管够！</p>
+                            <div class="activity-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>今晚 20:00</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>紫金港宿舍区</span>
+                                </div>
+                            </div>
+                            <div class="activity-footer">
+                                <div class="user-info">
+                                    <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                    <span>饼干君</span>
+                                </div>
+                                <div class="participants">
+                                    <span>4/8 人</span>
+                                </div>
+                                <button class="btn secondary small">加入</button>
+                            </div>
+                        </div>
+
+                        <div class="activity-card">
+                            <div class="activity-header">
+                                <div class="activity-type">
+                                    <i class="fas fa-bicycle"></i>
+                                    <span>体育运动</span>
+                                </div>
+                                <div class="activity-time">明天 8:00</div>
+                            </div>
+                            <h3>晨跑打卡</h3>
+                            <p>坚持晨跑第30天！寻找同样热爱运动的朋友，一起迎接美好的清晨。</p>
+                            <div class="activity-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>2025/06/09 08:00</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>西湖跑道</span>
+                                </div>
+                            </div>
+                            <div class="activity-footer">
+                                <div class="user-info">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                    <span>饼干君</span>
+                                </div>
+                                <div class="participants">
+                                    <span>3/6 人</span>
+                                </div>
+                                <button class="btn secondary small">加入</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 预留扩展区域 -->
+                    <div class="extension-area">
+                        <!-- 未来可添加：热门标签、地图视图、活动统计等 -->
+                        <div class="placeholder-section">
+                            <h3>更多功能正在开发中...</h3>
+                            <p>即将支持地图视图、热门标签筛选、活动推荐等功能</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 旅游板块 -->
+            <section id="travelPage" class="content-page">
+                <div class="page-header">
+                    <div class="container">
+                        <h1>旅游板块</h1>
+                        <p>发现美丽世界，与志同道合的朋友一起出发</p>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <!-- 筛选搜索栏 -->
+                    <div class="search-filters">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="搜索目的地，如杭州、上海...">
+                        </div>
+                        <div class="filter-group">
+                            <select class="filter-select">
+                                <option value="">旅行类型</option>
+                                <option value="culture">文化探索</option>
+                                <option value="outdoor">户外冒险</option>
+                                <option value="food">美食之旅</option>
+                                <option value="around">周边游</option>
+                            </select>
+                            <input type="date" class="filter-date" placeholder="出发日期">
+                            <input type="date" class="filter-date" placeholder="返回日期">
+                        </div>
+                        <button class="btn primary publish-btn" id="publishTravelBtn">
+                            <i class="fas fa-plus"></i>
+                            发布旅行计划
+                        </button>
+                    </div>
+
+                    <!-- 旅行计划列表 -->
+                    <div class="travel-grid">
+                        <!-- 旅行卡片示例 -->
+                        <div class="travel-card">
+                            <div class="travel-image">
+                                <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="西湖">
+                                <div class="travel-type">文化探索</div>
+                            </div>
+                            <div class="travel-content">
+                                <h3>周末西湖深度游</h3>
+                                <div class="travel-time">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>2025/07/01 - 2025/07/03</span>
+                                </div>
+                                <p>深度探索西湖文化，走访雷峰塔、苏堤、白堤，感受千年古韵。寻找喜欢文化历史的朋友一同前往。</p>
+                                <div class="travel-footer">
+                                    <div class="user-info">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                        <span>饼干君</span>
+                                    </div>
+                                    <div class="travel-actions">
+                                        <button class="btn secondary small">寻找搭子</button>
+                                        <button class="btn primary small book-btn" onclick="window.open('https://www.ctrip.com', '_blank')">立即预订 (携程)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="travel-card">
+                            <div class="travel-image">
+                                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="安吉竹海">
+                                <div class="travel-type">户外冒险</div>
+                            </div>
+                            <div class="travel-content">
+                                <h3>安吉竹海探秘</h3>
+                                <div class="travel-time">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>2025/07/15 - 2025/07/16</span>
+                                </div>
+                                <p>寻找热爱自然的朋友，一起徒步安吉竹海，呼吸新鲜空气，享受大自然的宁静与美好。</p>
+                                <div class="travel-footer">
+                                    <div class="user-info">
+                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                        <span>饼干君</span>
+                                    </div>
+                                    <div class="travel-actions">
+                                        <button class="btn secondary small">寻找搭子</button>
+                                        <button class="btn primary small book-btn" onclick="window.open('https://www.ctrip.com/hotels/hangzhou-hotels-64', '_blank')">立即预订 (携程酒店)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="travel-card">
+                            <div class="travel-image">
+                                <img src="https://images.unsplash.com/photo-1555400081-61321fe7ad22?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="上海">
+                                <div class="travel-type">都市探索</div>
+                            </div>
+                            <div class="travel-content">
+                                <h3>上海美食打卡之旅</h3>
+                                <div class="travel-time">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>2025/07/20 - 2025/07/22</span>
+                                </div>
+                                <p>魔都美食探索，从南京路到田子坊，寻找地道小吃和网红餐厅。吃货朋友们集合啦！</p>
+                                <div class="travel-footer">
+                                    <div class="user-info">
+                                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                        <span>饼干君</span>
+                                    </div>
+                                    <div class="travel-actions">
+                                        <button class="btn secondary small">寻找搭子</button>
+                                        <button class="btn primary small book-btn" onclick="window.open('https://www.qunar.com/index.html', '_blank')">立即预订 (去哪儿)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="travel-card">
+                            <div class="travel-image">
+                                <img src="https://images.unsplash.com/photo-1516265052611-b23b60d4ff98?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="苏州">
+                                <div class="travel-type">文化探索</div>
+                            </div>
+                            <div class="travel-content">
+                                <h3>苏州园林文化游</h3>
+                                <div class="travel-time">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>2025/08/01 - 2025/08/03</span>
+                                </div>
+                                <p>游览拙政园、留园等经典园林，感受江南古典之美。适合喜欢古典文化的朋友一同前往。</p>
+                                <div class="travel-footer">
+                                    <div class="user-info">
+                                        <img src="https://images.unsplash.com/photo-1494790108755-2616b332c4b7?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                        <span>饼干君</span>
+                                    </div>
+                                    <div class="travel-actions">
+                                        <button class="btn secondary small">寻找搭子</button>
+                                        <button class="btn primary small book-btn" onclick="window.open('https://www.ctrip.com', '_blank')">立即预订 (携程)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="travel-card">
+                            <div class="travel-image">
+                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="海滩">
+                                <div class="travel-type">海岛度假</div>
+                            </div>
+                            <div class="travel-content">
+                                <h3>舟山群岛海岛游</h3>
+                                <div class="travel-time">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>2025/08/10 - 2025/08/12</span>
+                                </div>
+                                <p>阳光、沙滩、海浪，在舟山群岛享受夏日时光。寻找热爱海洋的朋友一起看日出日落。</p>
+                                <div class="travel-footer">
+                                    <div class="user-info">
+                                        <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                        <span>饼干君</span>
+                                    </div>
+                                    <div class="travel-actions">
+                                        <button class="btn secondary small">寻找搭子</button>
+                                        <button class="btn primary small book-btn" onclick="window.open('https://www.ctrip.com', '_blank')">立即预订 (携程)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="travel-card">
+                            <div class="travel-image">
+                                <img src="https://images.unsplash.com/photo-1573160103600-51334dc8e9fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="古镇">
+                                <div class="travel-type">周边游</div>
+                            </div>
+                            <div class="travel-content">
+                                <h3>乌镇古镇一日游</h3>
+                                <div class="travel-time">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>2025/08/15</span>
+                                </div>
+                                <p>走进江南水乡，感受古镇的静谧与美好。一日往返，适合周末放松身心。</p>
+                                <div class="travel-footer">
+                                    <div class="user-info">
+                                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                        <span>饼干君</span>
+                                    </div>
+                                    <div class="travel-actions">
+                                        <button class="btn secondary small">寻找搭子</button>
+                                        <button class="btn primary small book-btn" onclick="window.open('https://www.qunar.com/index.html', '_blank')">立即预订 (去哪儿)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 预留扩展区域 -->
+                    <div class="extension-area">
+                        <!-- 未来可添加：推荐路线、合作优惠、旅行攻略等 -->
+                        <div class="placeholder-section">
+                            <h3>更多精彩内容即将推出...</h3>
+                            <p>期待推荐路线、独家优惠、详细攻略等功能上线</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 个人中心 -->
+            <section id="profilePage" class="content-page">
+                <div class="container">
+                    <!-- 个人信息头部区 -->
+                    <div class="profile-header">
+                        <div class="avatar-section">
+                            <img class="user-avatar" src="images/my_avatar.jpg" alt="头像">
+                            <button class="btn secondary small" id="uploadAvatarBtn">
+                                <i class="fas fa-camera"></i>
+                                上传头像
+                            </button>
+                        </div>
+                        <div class="user-details">
+                            <h2>杨幸</h2>
+                            <div class="user-info">
+                                <span>浙江大学 · 法学博士（在读）</span>
+                                <span>中共党员</span>
+                                <span>出生：1996年12月 · 湖北武汉</span>
+                            </div>
+                            <div class="user-bio" contenteditable="true">
+                                <strong>联系方式：</strong><br>
+                                TEL：13476250119<br>
+                                E-mail：302682523@qq.com<br>
+                                <br>
+                                <strong>语言 & 技能：</strong><br>
+                                CET-6（584） / CET-4（519）<br>
+                                CET-SET6（B+） / CET-SET4（B+）<br>
+                                普通话二级甲等<br>
+                                中学英语教师资格证<br>
+                                中国舞十级证书<br>
+                            </div>
+                            <div class="extension-badges">
+                                <span class="badge verified">
+                                    <i class="fas fa-check-circle"></i>
+                                    学生认证
+                                </span>
+                            </div>
+                            <a href="https://nicolazinx.github.io/AI-nicola-portfolio/" target="_blank" class="btn accent large" style="margin-top:10px;display:inline-block;">
+                                点击查看AI作品（AI开发者经历及成果）
+                            </a>
+                            <a href="https://nicolazinx.github.io/academicprofile/" target="_blank" class="btn primary small" style="margin-top:10px;display:inline-block;">
+                                点击查看个人学术简历
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 内容区 Tabs -->
+                    <div class="profile-tabs">
+                        <div class="tab-navigation">
+                            <!-- 默认active给到我的动态 -->
+                            <button class="tab-btn active" data-tab="posts">我的动态</button>
+                            <button class="tab-btn" data-tab="dabbers">我的搭子</button>
+                            <button class="tab-btn" data-tab="trips">我的旅行</button>
+                            <button class="tab-btn" data-tab="settings">设置</button>
+                        </div>
+
+                        <!-- 我的动态 -->
+                        <div id="postsTab" class="tab-content active">
+                            <!-- 动态发布区域 -->
+                            <div class="post-composer">
+                                <div class="composer-header">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                    <textarea placeholder="分享你的新鲜事..." rows="3"></textarea>
+                                </div>
+                                <div class="composer-actions">
+                                    <button class="btn secondary small" id="addImageBtn">
+                                        <i class="fas fa-image"></i>
+                                        添加图片
+                                    </button>
+                                    <button class="btn primary small">发布</button>
+                                </div>
+                            </div>
+
+                            <!-- 动态列表 -->
+                            <div class="posts-timeline">
+                                <div class="post-item">
+                                    <div class="post-header">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                        <div class="post-info">
+                                            <h4>饼干君</h4>
+                                            <span class="post-time">2小时前</span>
+                                        </div>
+                                    </div>
+                                    <div class="post-content">
+                                        <p>今天在西湖边跑步，遇到了很多志同道合的朋友！明天继续约起来💪</p>
+                                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="跑步照片">
+                                    </div>
+                                    <div class="post-actions">
+                                        <button class="action-btn">
+                                            <i class="fas fa-heart"></i>
+                                            <span>12</span>
+                                        </button>
+                                        <button class="action-btn">
+                                            <i class="fas fa-comment"></i>
+                                            <span>3</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="post-item">
+                                    <div class="post-header">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                        <div class="post-info">
+                                            <h4>饼干君</h4>
+                                            <span class="post-time">1天前</span>
+                                        </div>
+                                    </div>
+                                    <div class="post-content">
+                                        <p>和新朋友一起去安吉玩了两天，竹海真的太美了！感谢这个平台让我们相遇🌿</p>
+                                    </div>
+                                    <div class="post-actions">
+                                        <button class="action-btn">
+                                            <i class="fas fa-heart"></i>
+                                            <span>8</span>
+                                        </button>
+                                        <button class="action-btn">
+                                            <i class="fas fa-comment"></i>
+                                            <span>2</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="post-item">
+                                    <div class="post-header">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="用户头像">
+                                        <div class="post-info">
+                                            <h4>饼干君</h4>
+                                            <span class="post-time">3天前</span>
+                                        </div>
+                                    </div>
+                                    <div class="post-content">
+                                        <p>第一次使用搭子旅行平台，希望能在这里认识更多有趣的朋友！</p>
+                                    </div>
+                                    <div class="post-actions">
+                                        <button class="action-btn">
+                                            <i class="fas fa-heart"></i>
+                                            <span>15</span>
+                                        </button>
+                                        <button class="action-btn">
+                                            <i class="fas fa-comment"></i>
+                                            <span>5</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 我的搭子 -->
+                        <div id="dabbersTab" class="tab-content">
+                            <div class="my-activities">
+                                <div class="section-header">
+                                    <h3>我发起的活动</h3>
+                                </div>
+                                <div class="activity-list">
+                                    <div class="activity-item">
+                                        <div class="activity-icon">
+                                            <i class="fas fa-table-tennis"></i>
+                                        </div>
+                                        <div class="activity-details">
+                                            <h4>约羽毛球</h4>
+                                            <p>2025/06/08 15:00 - 浙大紫金港体育馆</p>
+                                            <span class="status active-status">进行中</span>
+                                        </div>
+                                        <div class="activity-stats">
+                                            <span>2/4 人</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section-header">
+                                    <h3>我参与的活动</h3>
+                                </div>
+                                <div class="activity-list">
+                                    <div class="activity-item">
+                                        <div class="activity-icon">
+                                            <i class="fas fa-utensils"></i>
+                                        </div>
+                                        <div class="activity-details">
+                                            <h4>一起探店</h4>
+                                            <p>2025/06/09 18:30 - 文一西路美食街</p>
+                                            <span class="status upcoming-status">即将开始</span>
+                                        </div>
+                                        <div class="activity-host">
+                                            <span>由 饼干君 发起</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="activity-item">
+                                        <div class="activity-icon">
+                                            <i class="fas fa-bicycle"></i>
+                                        </div>
+                                        <div class="activity-details">
+                                            <h4>晨跑打卡</h4>
+                                            <p>2025/06/05 08:00 - 西湖跑道</p>
+                                            <span class="status completed-status">已完成</span>
+                                        </div>
+                                        <div class="activity-host">
+                                            <span>由 饼干君 发起</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 我的旅行 -->
+                        <div id="tripsTab" class="tab-content">
+                            <div class="my-trips">
+                                <div class="section-header">
+                                    <h3>我发起的旅行</h3>
+                                </div>
+                                <div class="trip-list">
+                                    <div class="trip-item">
+                                        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=80&h=80&fit=crop" alt="西湖">
+                                        <div class="trip-details">
+                                            <h4>周末西湖深度游</h4>
+                                            <p>2025/07/01 - 2025/07/03</p>
+                                            <span class="status planning-status">筹备中</span>
+                                        </div>
+                                        <div class="trip-stats">
+                                            <span>3/5 人</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section-header">
+                                    <h3>我参与的旅行</h3>
+                                </div>
+                                <div class="trip-list">
+                                    <div class="trip-item">
+                                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=80&h=80&fit=crop" alt="安吉竹海">
+                                        <div class="trip-details">
+                                            <h4>安吉竹海探秘</h4>
+                                            <p>2025/06/01 - 2025/06/02</p>
+                                            <span class="status completed-status">已完成</span>
+                                        </div>
+                                        <div class="trip-host">
+                                            <span>由 饼干君 发起</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="trip-item">
+                                        <img src="https://images.unsplash.com/photo-1555400081-61321fe7ad22?w=80&h=80&fit=crop" alt="上海">
+                                        <div class="trip-details">
+                                            <h4>上海美食打卡之旅</h4>
+                                            <p>2025/07/20 - 2025/07/22</p>
+                                            <span class="status upcoming-status">即将开始</span>
+                                        </div>
+                                        <div class="trip-host">
+                                            <span>由 饼干君 发起</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 设置 -->
+                        <div id="settingsTab" class="tab-content">
+                            <div class="settings-section">
+                                <h3>账户设置</h3>
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <i class="fas fa-lock"></i>
+                                        <span>修改密码</span>
+                                    </div>
+                                    <button class="btn secondary small">修改</button>
+                                </div>
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>隐私设置</span>
+                                    </div>
+                                    <button class="btn secondary small">设置</button>
+                                </div>
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <i class="fas fa-bell"></i>
+                                        <span>消息通知</span>
+                                    </div>
+                                    <button class="btn secondary small">管理</button>
+                                </div>
+
+                                <!-- 预留扩展位置 -->
+                                <div class="extension-settings">
+                                    <h4>更多设置功能即将上线...</h4>
+                                    <p>包括主题切换、语言设置、数据导出等功能</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <div class="footer-brand">
+                            <i class="fas fa-route"></i>
+                            <span>搭子旅行</span>
+                        </div>
+                        <p>专为高校学生打造的社交旅行平台</p>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#">关于我们</a>
+                        <a href="#">联系我们</a>
+                        <a href="#">隐私政策</a>
+                        <a href="#">服务条款</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2025 搭子旅行. 保留所有权利.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 模态框 (用于发布搭子/旅行需求) -->
+    <div id="publishModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">发布新需求</h3>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="publishForm">
+                    <!-- 根据是发布搭子还是旅行，这里可以动态切换表单内容或调整显示/隐藏 -->
+                    <div id="dabberFormFields" class="form-section active-form-section">
+                        <div class="form-group">
+                            <label for="dabberTitle">搭子标题</label>
+                            <input type="text" id="dabberTitle" placeholder="给你的搭子活动起个吸引人的标题" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dabberDescription">活动描述</label>
+                            <textarea id="dabberDescription" rows="4" placeholder="详细描述你的活动内容和要求，如：求羽毛球搭子，每周日下午，技术不限，地点紫金港体育馆..." required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dabberDate">日期</label>
+                                <input type="date" id="dabberDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dabberTime">时间</label>
+                                <input type="time" id="dabberTime">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dabberLocation">地点</label>
+                            <input type="text" id="dabberLocation" placeholder="活动地点" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dabberMaxParticipants">最大人数</label>
+                                <input type="number" id="dabberMaxParticipants" min="2" max="20" value="4">
+                            </div>
+                            <div class="form-group">
+                                <label for="dabberCategory">类型</label>
+                                <select id="dabberCategory">
+                                    <option value="sports">体育运动</option>
+                                    <option value="food">美食探店</option>
+                                    <option value="study">学习自习</option>
+                                    <option value="entertainment">休闲娱乐</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="travelFormFields" class="form-section">
+                        <div class="form-group">
+                            <label for="travelTitle">旅行标题</label>
+                            <input type="text" id="travelTitle" placeholder="给你的旅行计划起个响亮的标题" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="travelDescription">旅行描述</label>
+                            <textarea id="travelDescription" rows="4" placeholder="详细描述你的旅行目的地、行程安排、期待的搭子类型等" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="travelStartDate">出发日期</label>
+                                <input type="date" id="travelStartDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="travelEndDate">返回日期</label>
+                                <input type="date" id="travelEndDate" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="travelDestination">目的地</label>
+                            <input type="text" id="travelDestination" placeholder="旅行目的地，如：杭州西湖、安吉竹海" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="travelCategory">旅行类型</label>
+                            <select id="travelCategory">
+                                <option value="culture">文化探索</option>
+                                <option value="outdoor">户外冒险</option>
+                                <option value="food">美食之旅</option>
+                                <option value="around">周边游</option>
+                                <option value="longtrip">长途旅行</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="travelLink">预订链接 (可选)</label>
+                            <input type="url" id="travelLink" placeholder="例如：携程或去哪儿的旅行产品链接">
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" id="publishType" value="dabber"> <!-- 隐藏字段，记录当前发布类型 -->
+
+                    <div class="modal-actions">
+                        <button type="button" class="btn secondary" id="cancelPublish">取消</button>
+                        <button type="submit" class="btn primary">发布</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 在个人中心页面底部添加红色说明文字 -->
+    <div style="text-align:center;color:#e53e3e;font-size:1.1em;margin:30px 0 0 0;">
+        开发者：饼干君  备注：非盈利 仅爱好 不作商用
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
